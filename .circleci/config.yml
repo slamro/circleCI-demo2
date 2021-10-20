@@ -17,6 +17,16 @@ jobs:
       - run:
           name: "Say hello"
           command: "echo Hello, World!"
+  two: # This is our second job.
+    docker: # it runs inside a docker image, the same as above.
+      - image: circleci/ruby:2.4.1
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+    steps:
+      - checkout
+      - run: echo "A more familiar hi" # We run a similar echo command to above.
+      - run: sleep 15 # and then sleep for 15 seconds.
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
